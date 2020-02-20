@@ -28,7 +28,7 @@ class Features extends StatelessWidget {
           crossAxisCount: 2,
           children: <Widget>[
             FeatureCard(
-              title: 'Turn on/off',
+              title: 'Heating on/off',
               appliance : kTurn,
             ),
             FeatureCard(
@@ -44,8 +44,8 @@ class Features extends StatelessWidget {
               appliance : kTimer,
             ),
             FeatureCard(
-              title: 'Extend the rails',
-              //TODO : show an alert about it
+              title: 'Light',
+              appliance : kLight,
             ),
           ],
           //child : GridView();

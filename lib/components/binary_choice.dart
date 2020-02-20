@@ -4,15 +4,17 @@ import 'package:eye_oculus/brain/brain_modifiers.dart';
 class BinChoice extends StatefulWidget {
 
   final SwitchBrain brain;
-  BinChoice({this.brain});
+  final Map parameter;
+  BinChoice({@required this.brain, this.parameter});
 
   @override
-  _BinChoiceState createState() => _BinChoiceState(brain : brain);
+  _BinChoiceState createState() => _BinChoiceState(brain : brain, parameter: parameter);
 }
 
 class _BinChoiceState extends State<BinChoice> {
   final SwitchBrain brain;
-  _BinChoiceState({this.brain});
+  final Map parameter;
+  _BinChoiceState({this.brain, this.parameter});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,8 +31,8 @@ class _BinChoiceState extends State<BinChoice> {
                 color: Colors.white70,
                 child: Center(
                   child: Icon(
-                    Icons.check,
-                    color: brain.getValue() ? Colors.green : Colors.grey,
+                    parameter['iconOn'],
+                    color: brain.getValue() ? parameter['colorOn'] : Colors.grey,
                     size: 120,
                   ),
                 ),
@@ -47,8 +49,8 @@ class _BinChoiceState extends State<BinChoice> {
                 color: Colors.white70,
                 child: Center(
                   child: Icon(
-                    Icons.close,
-                    color: brain.getValue() ? Colors.grey : Colors.red,
+                    parameter['iconOff'],
+                    color: brain.getValue() ? Colors.grey : parameter['colorOff'],
                     size : 120,
                   ),
                 ),

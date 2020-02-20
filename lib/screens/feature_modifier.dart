@@ -27,12 +27,13 @@ class _FeatureModifierState extends State<FeatureModifier> {
     String feature = this.widget.feature;
 
     if(kRangeList.contains(feature)){
-      brainComponent = new RangeBrain(lower: 0, up: 100); //TODO : add personalized bounds
+      brainComponent = new RangeBrain(parameters : kRangeParameters[feature]); //TODO : add personalized bounds
       widgetComponent = Range(brain: brainComponent);
     }
-    else if(kBinList.contains(feature)){
+    else if(kBinList.contains(feature)){ //
       brainComponent = new SwitchBrain(on : true);
-      widgetComponent = BinChoice(brain : brainComponent);
+
+      widgetComponent = BinChoice(brain : brainComponent, parameter : kBinParameters[feature]);
     }
     else if(kDropdownList.contains(feature)){
       widgetComponent = DropDown(list : kDropDownListHeatingMode); //TODO add necessary parameters

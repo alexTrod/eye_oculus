@@ -3,22 +3,24 @@ abstract class Brain{
 }
 
 class RangeBrain extends Brain{
-  int lower;
-  int up;
+  Map parameters;
   int value;
-
-  RangeBrain({this.lower, this.up}){
-    value = (lower+up)~/2;
+  int upper;
+  int lower;
+  RangeBrain({this.parameters}){
+    lower = parameters['lower'];
+    upper = parameters['upper'];
+    value = (lower+upper)~/2;
   }
   int getValue(){
     return value;
   }
   int getDownBound(){
-    return this.lower;
+    return lower;
   }
 
   int getUpperBound(){
-    return this.up;
+    return upper;
   }
   void setValue(int newValue){
     value = newValue;
