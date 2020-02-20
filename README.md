@@ -7,3 +7,4 @@ Eye Oculus app
 - Implement placeholder
 - Implement speech recognition
 - Improve the design
+- Add semantic labels (accessibility mode)
