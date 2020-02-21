@@ -2,7 +2,7 @@ import 'package:eye_oculus/constants.dart';
 import 'package:flutter/material.dart';
 
 class DropDown extends StatefulWidget {
-  List list;
+  final List list;
   DropDown({this.list});
   @override
   _DropDownState createState() => _DropDownState();

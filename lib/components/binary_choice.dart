@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eye_oculus/brain/brain_modifiers.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class BinChoice extends StatefulWidget {
 
@@ -12,9 +13,23 @@ class BinChoice extends StatefulWidget {
 }
 
 class _BinChoiceState extends State<BinChoice> {
+
   final SwitchBrain brain;
   final Map parameter;
+  final assetsAudioPlayer = AssetsAudioPlayer();
+
   _BinChoiceState({this.brain, this.parameter});
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    assetsAudioPlayer.open(
+      "assets/on.mp3",
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,6 +40,10 @@ class _BinChoiceState extends State<BinChoice> {
             child: GestureDetector(
               onTap: (){
                 setState(() =>  brain.setValue(true));
+                assetsAudioPlayer.open(
+                  "assets/on.mp3",
+                );
+                assetsAudioPlayer.play();
               },
               child: Material(
                 elevation: 5,
@@ -43,9 +62,13 @@ class _BinChoiceState extends State<BinChoice> {
             child: GestureDetector(
               onTap: (){
                 setState(() => brain.setValue(false));
+                assetsAudioPlayer.open(
+                  "assets/off.mp3",
+                );
+                assetsAudioPlayer.play();
               },
               child: Material(
-                elevation: 5,
+                elevation: 0,
                 color: Colors.white70,
                 child: Center(
                   child: Icon(

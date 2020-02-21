@@ -19,31 +19,34 @@ class FeatureModifier extends StatefulWidget {
 
 class _FeatureModifierState extends State<FeatureModifier> {
 
+  final String placeholder;
   Widget modifier;
   Brain brain;
+
+  _FeatureModifierState({this.placeholder});
+
   Widget changerComponent(){
-    Brain brainComponent;
     Widget widgetComponent;
     String feature = this.widget.feature;
 
     if(kRangeList.contains(feature)){
-      brainComponent = new RangeBrain(parameters : kRangeParameters[feature]); //TODO : add personalized bounds
-      widgetComponent = Range(brain: brainComponent);
+      brain = new RangeBrain(parameters : kRangeParameters[feature]);
+      widgetComponent = Range(brain: brain, parameter : kRangeParameters[feature]);
     }
     else if(kBinList.contains(feature)){ //
-      brainComponent = new SwitchBrain(on : true);
+      brain = new SwitchBrain(on : true);
 
-      widgetComponent = BinChoice(brain : brainComponent, parameter : kBinParameters[feature]);
+      widgetComponent = BinChoice(brain : brain, parameter : kBinParameters[feature]);
     }
     else if(kDropdownList.contains(feature)){
-      widgetComponent = DropDown(list : kDropDownListHeatingMode); //TODO add necessary parameters
+      widgetComponent = DropDown(list : kDropDownListHeatingMode);
+      // TODO : add brain dropdown
     }
     else{
-      brainComponent = new NoBrain(error : '404');
+      brain = new NoBrain(error : '404');
       widgetComponent = Container(child : Center(child: Text('No available components')));
     }
 
-    brain = brainComponent;
     return widgetComponent;
 
   }
@@ -58,6 +61,7 @@ class _FeatureModifierState extends State<FeatureModifier> {
   @override
   Widget build(BuildContext context) {
 
+
     return Scaffold(
       backgroundColor: Colors.white,
       body : Padding(
@@ -69,7 +73,8 @@ class _FeatureModifierState extends State<FeatureModifier> {
             Expanded(
               child: TouchBack(
                 childContent : Text(
-                  this.widget.placeholder.toString(), // TODO : replace placeholder by "real values" --> use a class for the placeholder and change a class instance's value
+                  "",
+                  //brain.getReadableValue(),
                   style: kTextStyleNumber,
                 ),
               ),

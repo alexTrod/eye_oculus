@@ -40,7 +40,7 @@ class ApplianceCard extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              fontSize: 40.0,
+              fontSize: 30.0,
               letterSpacing: 2,
               color: Colors.white,
             ),

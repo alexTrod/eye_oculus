@@ -1,29 +1,40 @@
 abstract class Brain{
   getValue();
+  String getReadableValue();
 }
 
 class RangeBrain extends Brain{
   Map parameters;
-  int value;
-  int upper;
-  int lower;
+  int initValue;
+  double upper;
+  double lower;
+  int divisions;
   RangeBrain({this.parameters}){
     lower = parameters['lower'];
     upper = parameters['upper'];
-    value = (lower+upper)~/2;
+    divisions = parameters['divisions'];
+    initValue = (lower+upper)~/2;
   }
   int getValue(){
-    return value;
+    return initValue;
   }
-  int getDownBound(){
-    return lower;
+  int getInitValue(){
+    return initValue;
   }
-
-  int getUpperBound(){
-    return upper;
+  double getLower(){
+    return this.lower;
   }
-  void setValue(int newValue){
-    value = newValue;
+  double getUpper(){
+    return this.upper;
+  }
+  int getDivisions(){
+    return this.divisions;
+  }
+  String getReadableValue(){
+    return initValue.toString();
+  }
+  setValue(int newValue){
+    initValue = newValue;
   }
 
 }
@@ -37,6 +48,11 @@ class SwitchBrain extends Brain{
     return this.on;
   }
 
+  String getReadableValue(){
+    if(on) return "On";
+    else return "Off";
+  }
+
   void setValue(bool on){
     this.on = on;
   }
@@ -47,5 +63,8 @@ class NoBrain extends Brain{
   NoBrain({this.error = '404'});
   String getValue(){
     return error;
+  }
+  String getReadableValue(){
+    return getValue();
   }
 }

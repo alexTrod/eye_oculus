@@ -4,6 +4,6 @@ Eye Oculus app
 
 ## TO DO
 
-- Implement placeholder
 - Implement speech recognition
-- Improve the design
+- Add vocal feedback (ongoing)
+- Getting actual data from the microcontroller

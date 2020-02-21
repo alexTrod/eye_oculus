@@ -21,3 +21,8 @@ doc/api/
 *.js.map
 .idea/workspace.xml
 .idea/*
+.idea/workspace.xml
+.idea/workspace.xml
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-plugins-dependencies
