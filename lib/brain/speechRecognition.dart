@@ -39,7 +39,7 @@ class _SpeechCommandState extends State<SpeechCommand> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Speech to Text Example'),
+          title: const Text('Eye oculus'),
         ),
         body: _hasSpeech
             ? Column(children: [
