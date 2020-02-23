@@ -15,3 +15,7 @@ pubspec.lock
 .idea/*
 android/*
 ios/*
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-plugins-dependencies
+

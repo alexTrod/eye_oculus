@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:eye_oculus/screens/features_screen.dart';
 
 class TouchBack extends StatefulWidget {
-  Text childContent;
+  final Text childContent;
 
   TouchBack({this.childContent});
 

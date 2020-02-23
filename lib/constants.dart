@@ -13,14 +13,14 @@ const kDropdownList = [kHeating];
 
 const kRangeParameters = {
   'temperature' : {
-    'lower' : 150,
-    'upper' : 250,
-    'divions' : 20,
+    'lower' : 150.0,
+    'upper' : 250.0,
+    'divisions' : 20,
   },
   'timer' : {
-    'lower' : 0,
-    'upper' : 90,
-    'divions': 90,
+    'lower' : 0.0,
+    'upper' : 90.0,
+    'divisions': 90,
   }
 };
 
@@ -34,7 +34,7 @@ const kBinParameters = {
   'light' : {
     'iconOn' : Icons.brightness_7 ,
     'iconOff' : Icons.highlight_off,
-    'colorOn' : Colors.yellow,
+    'colorOn' : Colors.orangeAccent,
     'colorOff' : Colors.blueGrey,
   }
 };

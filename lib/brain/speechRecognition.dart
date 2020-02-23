@@ -36,59 +36,15 @@ class _SpeechCommandState extends State<SpeechCommand> {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      home: Scaffold(
+    return
+      Scaffold(
         appBar: AppBar(
-          title: const Text('Eye oculus'),
+          title: const Text('Eye oculus' ),
         ),
-        body: _hasSpeech
-            ? Column(children: [
+        body: Column(children: [
           Expanded(
             child: Center(
               child: Text('Speech recognition available'),
-            ),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FlatButton(
-                  child: Text('Start'),
-                  onPressed: startListening,
-                ),
-                FlatButton(
-                  child: Text('Stop'),
-                  onPressed: stopListening,
-                ),
-                FlatButton(
-                  child: Text('Cancel'),
-                  onPressed:cancelListening,
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                Center(
-                  child: Text('Recognized Words'),
-                ),
-                Center(
-                  child: Text(lastWords),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                Center(
-                  child: Text('Error'),
-                ),
-                Center(
-                  child: Text(lastError),
-                ),
-              ],
             ),
           ),
           Expanded(
@@ -97,8 +53,6 @@ class _SpeechCommandState extends State<SpeechCommand> {
             ),
           ),
         ])
-            : Center( child: Text('Speech recognition unavailable', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold))),
-      ),
     );
   }
 
