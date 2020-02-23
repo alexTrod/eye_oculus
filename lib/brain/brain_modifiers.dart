@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 abstract class Brain{
   getValue();
   String getReadableValue();
@@ -57,7 +59,23 @@ class SwitchBrain extends Brain{
     this.on = on;
   }
 }
+class DropDownBrain extends Brain{
 
+  List list;
+  int index;
+  DropDownBrain({@required this.list});
+
+  String getReadableValue(){
+    return list[index];
+  }
+  List getList(){
+    return list;
+  }
+  getValue(){
+    return list[index];
+  }
+
+}
 class NoBrain extends Brain{
   String error;
   NoBrain({this.error = '404'});

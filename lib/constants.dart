@@ -34,7 +34,7 @@ const kBinParameters = {
   'light' : {
     'iconOn' : Icons.brightness_7 ,
     'iconOff' : Icons.highlight_off,
-    'colorOn' : Colors.yellow,
+    'colorOn' : Colors.orangeAccent,
     'colorOff' : Colors.blueGrey,
   }
 };

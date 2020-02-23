@@ -1,26 +1,27 @@
+import 'package:eye_oculus/brain/brain_modifiers.dart';
 import 'package:eye_oculus/constants.dart';
 import 'package:flutter/material.dart';
 
 class DropDown extends StatefulWidget {
-  final List list;
-  DropDown({this.list});
+  final DropDownBrain brain;
+  DropDown({this.brain});
   @override
   _DropDownState createState() => _DropDownState();
 }
 
 class _DropDownState extends State<DropDown> {
-  int currentIndex = 0; //TODO : get current value (through the API)
+  int currentIndex = 0; //TODO : get getSettings
 
   getBack() {
     setState(() {
-      currentIndex = (currentIndex) % this.widget.list.length;
+      currentIndex = (currentIndex) % this.widget.brain.getList().length;
     });
   }
 
   getNext() {
     setState(() {
       //currentIndex = (currentIndex++) % this.widget.list.length;
-      currentIndex = (currentIndex+1) % this.widget.list.length;
+      currentIndex = (currentIndex+1) % this.widget.brain.getList().length;
     });
   }
 
@@ -42,9 +43,9 @@ class _DropDownState extends State<DropDown> {
               child: Icon(Icons.arrow_back_ios)
           ),
           Text(
-            this.widget.list[currentIndex],
+            this.widget.brain.getList()[currentIndex],
             style : TextStyle(
-              fontSize : 40,
+              fontSize : 20,
             ),
           ),
           FloatingActionButton(

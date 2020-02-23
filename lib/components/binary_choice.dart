@@ -21,16 +21,6 @@ class _BinChoiceState extends State<BinChoice> {
   _BinChoiceState({this.brain, this.parameter});
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    assetsAudioPlayer.open(
-      "assets/on.mp3",
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(

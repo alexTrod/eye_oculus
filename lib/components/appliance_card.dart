@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:eye_oculus/screens/features_screen.dart';
 import 'package:eye_oculus/brain/speechRecognition.dart';
+import 'package:flutter_alert/flutter_alert.dart';
+
 class ApplianceCard extends StatelessWidget {
   final String title;
   final String appliance;
@@ -29,7 +31,10 @@ class ApplianceCard extends StatelessWidget {
               ));
         }
         else {
-          //TODO : add a dialog 'this feature will be implemented soon'
+          showAlert(
+            context: context,
+            title: "This appliance is not implemented yet",
+          );
         }
       },
       child: Material(

@@ -39,8 +39,8 @@ class _FeatureModifierState extends State<FeatureModifier> {
       widgetComponent = BinChoice(brain : brain, parameter : kBinParameters[feature]);
     }
     else if(kDropdownList.contains(feature)){
-      widgetComponent = DropDown(list : kDropDownListHeatingMode);
-      // TODO : add brain dropdown
+      brain = new DropDownBrain(list: kDropDownListHeatingMode);
+      widgetComponent = DropDown(brain: brain);
     }
     else{
       brain = new NoBrain(error : '404');
@@ -53,7 +53,6 @@ class _FeatureModifierState extends State<FeatureModifier> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     modifier = changerComponent();
   }
