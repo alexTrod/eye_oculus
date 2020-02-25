@@ -27,6 +27,7 @@ class AppliancesList extends StatelessWidget {
             ApplianceCard(title: 'Fridge', appliance: 'fridge'),
             ApplianceCard(title: 'Toaster', appliance: 'toaster'),
             ApplianceCard(title: 'Speech', appliance: 'speech'),
+            ApplianceCard(title: 'Server', appliance: 'server'),
           ],
           //child : GridView();
         ),
