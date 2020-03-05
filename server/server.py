@@ -18,9 +18,10 @@ conn_id = 0
 
 # heating mode: fan oven -
 
-host, port = '192.168.43.69', 8888  # hotspot 12
+#host, port = '192.168.43.69', 8888  # hotspot 12
 # host, port = 'localhost', 8888  # local
 # host, port = '145.94.151.50', 8888  # eduroam (civil)
+host, port = '145.94.150.241', 8888  # eduroam (library)
 
 lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Avoid bind() exception: OSError: [Errno 48] Address already in use
@@ -46,7 +47,7 @@ try:
             else:
                 try:
                     if mask & selectors.EVENT_READ:
-                        data_recv = sock.recv(4096)
+                        data_recv = sock.recv(40)
                         # add the new data to the send buffer of all other sockets
                         # here, we need to recognise which type of data it is. Based on that:
                         #   1. translate it if it comes from the phone, then put it in send buffer
@@ -59,6 +60,7 @@ try:
                                     cmds += bytes(json_to_cmd(json_key, json_data[json_key]), 'utf-8')
                                     print(cmds)
                                 for conn in send_buffers:
+                                    send_buffers[conn] += b'HTTP/1.1 200 OK\r\n\r\n'
                                     if conn is not key.data:
                                         send_buffers[conn] += cmds
                             except json.JSONDecodeError as e:  # find a better way to do this
@@ -66,8 +68,9 @@ try:
                     elif mask & selectors.EVENT_WRITE:
                         send_buffer = send_buffers[key.data]
                         if send_buffer:
-                            print("Sent info")
-                            sent = sock.send(send_buffer + b"\n")
+                            print("All send buffers:", send_buffers)
+                            sent = sock.send(send_buffer)
+                            print("Sent info", send_buffer[:sent+1], sent)
                             send_buffers[key.data] = send_buffer[sent:]  # remove sent bytes from buffer
 
                 except Exception:

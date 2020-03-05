@@ -1,5 +1,5 @@
-# the format for one element is [modifier, [option1, translation], [option2, translation], ...] in case it's a command
-# with different options, and [modifier, translation] in case it's a command with a numerical argument
+# the format for one element is modifier: [option1, translation], [option2, translation], ...] in case it's a command
+# with different options, and modifier: translation] in case it's a command with a numerical argument
 
 json_to_cmd_trans = {
     "heating mode": [["fan oven", "A"], ["conventional", "B"], ["bottom element", "C"], ["fan and grill", "D"],
