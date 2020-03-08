@@ -1,64 +1,168 @@
-# the format for one element is modifier: [option1, translation], [option2, translation], ...] in case it's a command
-# with different options, and modifier: translation] in case it's a command with a numerical argument
+import json
+from bidict import bidict
 
-json_to_cmd_trans = {
-    "heating mode": [["fan oven", "A"], ["conventional", "B"], ["bottom element", "C"], ["fan and grill", "D"],
-                     ["defrosting", "G"]],
-    "oven light": "F",
-    "get temperature": "H",
-    "set temperature": "I",
-    "timer": "J"
-}
+"""
+Supported protocol:
 
-cmd_to_json_trans = {
-    "A": ["heating mode", "fan oven"],
-    "B": ["heating mode", "conventional"],
-    "C": ["heating mode", "bottom element"],
-    "D": ["heating mode", "fan and grill"],
-    "E": ["heating mode", "grill"],
-    "F": ["oven light"],
-    "G": ["heating mode", "defrosting"],
-    "H": ["get temperature"],
-    "I": ["set temperature"],
-    "J": ["timer"]
-}
+GET
+    Request : (same for both range and switch features)
+        {
+            "feature" : feature_name
+        }
+        -> 0000c (where c is the command character)             
+    Response :
+        Range :
+            xxxxc (where xxxx is the requested value) ->
+            {
+                "featureType" : "range",
+                feature_name : {
+                    "value" : value,
+                }
+            }
+        Switch :
+            000xc (where x is either T or F) ->
+            {
+                "featureType" : "switch",
+                feature_name : {
+                    "on" : boolean,
+                }
+            }
+    The GET functionality is currently not supported for dropdown features
+
+POST
+    Request :
+        Range :
+            {
+                "featureType" : "range",
+                feature_name : {
+                    "value" : value,
+                }
+            } -> xxxxc (where xxxx is the value to be posted)
+        Switch :
+            {
+                "featureType" : "switch",
+                feature_name : {
+                    "on" : boolean,
+                }
+            } -> 000xc (where x is either T or F)
+        Dropdown:
+            {
+                "featureType" : "dropdown",
+                feature_name : {
+                    "value" : option,
+                }
+            } -> 0000c
+    Response :
+        Range :
+            xxxxc ->
+            {
+                "featureType" : "range",
+                feature_name : {
+                    "value" : value,
+                }
+            }
+        Switch :
+            000xc ->
+            {
+                "featureType" : "switch",
+                feature_name : {
+                    "on" : boolean,
+                }
+            }
+        Dropdown:
+            0000c ->
+            {
+                "featureType" : "dropdown",
+                feature_name : {
+                    "value" : option,
+                }
+            }
+"""
+
+dictionary = bidict({
+    "A": "heating mode.fan oven",
+    "B": "heating mode.conventional",
+    "C": "heating mode.bottom element",
+    "D": "heating mode.fan and grill",
+    "E": "heating mode.grill",
+    "F": "oven light",
+    "G": "heating mode.defrosting",
+    "H": "get temperature",
+    "I": "set temperature",
+    "J": "timer"
+})
 
 
-def json_to_cmd(key, arg):
-    int_arg = isinstance(arg, int)
+def json_to_cmd(data):
+    data = json.loads(data)
+    feature_name, value = "", 0
+    feature_type = None
 
-    cmd_char = ""
-    cmd_arg = arg if int_arg else 0
+    if "featureType" in data:  # POST request
+        feature_type = data["featureType"]
 
-    if key in json_to_cmd_trans:
-        trans = json_to_cmd_trans[key]
-        if int_arg:
-            cmd_char = trans
+        json_keys = list(data.keys())
+        json_keys.remove("featureType")
+        feature_name = json_keys[0]  # doesn't work with the current format for drop down menus
 
-        else:
-            for sub_cmd in trans:
-                if arg == sub_cmd[0]:
-                    cmd_char = sub_cmd[1]
+        if feature_type == "range" or feature_type == "dropdown":
+            value = data[feature_name]["value"]
+        elif feature_type == "switch":
+            value = data[feature_name]["on"]
 
-    cmd_arg = str(cmd_arg)
-    while len(cmd_arg) < 4:
-        cmd_arg = "0" + cmd_arg
+    elif "feature" in data:  # GET request
+        feature_name = data["feature"]
 
-    if len(cmd_arg) > 4 or len(cmd_char) == 0:
-        return ""
+    cmd_arg = str(value)
+    request = feature_name
 
-    return cmd_arg + cmd_char
+    if feature_type == "dropdown":
+        request += "." + value
+        cmd_arg = ""
+
+    elif feature_type == "switch":
+        cmd_arg = "T" if value else "F"
+
+    if request not in dictionary.inverse or len(cmd_arg) > 4:
+        print("unable to translate", data, "to cmds")
+        return b''
+
+    cmd_char = dictionary.inverse[request]
+    cmd_arg = "0" * (4 - len(cmd_arg)) + cmd_arg
+
+    print("translated", data, "to", bytes(cmd_arg + cmd_char, 'utf-8'))
+    return bytes(cmd_arg + cmd_char, 'utf-8')
 
 
 def cmd_to_json(cmd):
+    cmd = cmd.decode('utf-8')
     cmd_arg, cmd_char = cmd[:4], cmd[4]
-    json_key, json_val = "", ""
-    if cmd_char in cmd_to_json_trans:
-        trans = cmd_to_json_trans[cmd_char]
-        json_key = trans[0]
-        if len(trans) > 0:
-            json_val = trans[1]
-        else:
-            json_val = int(cmd_arg)
 
-    return {json_key: json_val}
+    if cmd_char in dictionary:
+        trans = dictionary[cmd_char].split(".")
+        feature_name = trans[0]
+
+        if len(trans) > 1:
+            json_data = {"featureType": "dropdown",
+                         feature_name: {
+                             "value": trans[1]
+                         }}
+
+        elif "T" in cmd_arg or "F" in cmd_arg:
+            json_data = {"featureType": "switch",
+                         feature_name: {
+                             "on": "T" in cmd_arg
+                         }}
+
+        else:
+            json_data = {"featureType": "range",
+                         feature_name: {
+                             "value": int(cmd_arg)
+                         }}
+
+    else:
+        print("unable to translate", cmd, "to json")
+        return b''
+
+    print("translated", cmd, "to", bytes(json.dumps(json_data), 'utf-8'))
+    return bytes(json.dumps(json_data), 'utf-8')
