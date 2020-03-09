@@ -1,4 +1,3 @@
-import 'package:eye_oculus/brain/postRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:eye_oculus/screens/features_screen.dart';
 import 'package:eye_oculus/brain/speechRecognition.dart';
@@ -30,10 +29,6 @@ class ApplianceCard extends StatelessWidget {
                 builder: (context) =>
                     SpeechCommand(), // pass parameter
               ));
-        }
-        else if(appliance == 'server'){ // TODO : remove it
-          PostRangeRequest client = new PostRangeRequest();
-          client.postRequest();
         }
         else {
           showAlert(

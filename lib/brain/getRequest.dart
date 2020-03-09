@@ -1,5 +1,3 @@
-import 'package:eye_oculus/brain/settings.dart';
-
 import 'request.dart';
 
 const range = '{"temperature": {"value": 200,"lower_bound": 150,"upper_bound": 250}, "timer": {"value": 0,"lower_bound": 0,"upper_bound": 90}}';
@@ -10,6 +8,7 @@ mixin GetRequest on Command {
 
 }
 class GetRangeRequest extends RangeRequest with GetRequest{
+  //This will be done for the final presentation
   //TODO : parse json and define settings
   //TODO : all modifiers should have the settings as parameters
   //var parsedJson = json.decode(range);

@@ -6,6 +6,7 @@ import 'package:eye_oculus/components/binary_choice.dart';
 import 'package:eye_oculus/components/touch_back.dart';
 import 'package:eye_oculus/components/dropdown.dart';
 import 'package:eye_oculus/brain/brain_modifiers.dart';
+import 'package:eye_oculus/brain/settings.dart';
 
 class FeatureModifier extends StatefulWidget {
 
@@ -30,11 +31,13 @@ class _FeatureModifierState extends State<FeatureModifier> {
     String feature = this.widget.feature;
 
     if(kRangeList.contains(feature)){
-      brain = new RangeBrain(parameters : kRangeParameters[feature]);
+      //TODO step1
+      print('feature = '+feature);
+      brain = new RangeBrain(parameters : Settings.getRangeParameters(), feature : feature);
       widgetComponent = Range(brain: brain, parameter : kRangeParameters[feature]);
     }
     else if(kBinList.contains(feature)){ //
-      brain = new SwitchBrain(on : true);
+      brain = new SwitchBrain(on : true, feature:feature);
 
       widgetComponent = BinChoice(brain : brain, parameter : kBinParameters[feature]);
     }
