@@ -1,7 +1,8 @@
 import 'package:eye_oculus/brain/brain_modifiers.dart';
 import 'package:flutter/material.dart';
-import 'package:eye_oculus/constants.dart';
 import 'package:eye_oculus/components/label.dart';
+import 'package:eye_oculus/brain/settings.dart';
+import 'package:eye_oculus/brain/postRequest.dart';
 
 class Range extends StatefulWidget {
   final RangeBrain brain;
@@ -27,13 +28,20 @@ class _RangeState extends State<Range> {
   void _setValue(double value) {
     setState(() {
       _value = value;
-      this.widget.brain.setValue((_value*100).toInt());
+      this.widget.brain.setValue((_value*100));
     });
+  }
+  void _sendValue(double value){
+    //TODO: read value out loud
+    PostRangeRequest postRequest = PostRangeRequest();
+    postRequest.postRequest(this.widget.brain.getFeature(), value);
+    Settings.setRangeParameters(value, this.widget.brain.getFeature());
   }
   @override
   void initState() {
     super.initState();
-    _value = brain.getInitValue().toDouble();
+    print(brain);
+    _value = brain.getValue().toDouble();
   }
   @override
   Widget build(BuildContext context) {
@@ -49,16 +57,15 @@ class _RangeState extends State<Range> {
                           overlayColor: Colors.blueGrey,
                           trackHeight: 20.0,
                           thumbColor: Colors.black45,
-                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                          overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
+                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 30.0),
+                          overlayShape: RoundSliderOverlayShape(overlayRadius: 50.0),
                           activeTrackColor: Colors.black38,
                           disabledActiveTrackColor: Colors.blueGrey),
                       child: Slider(
                         value: _value,
                         divisions: brain.getDivisions(),
                         onChanged: _setValue,
-                        //onChangeEnd: ,
-                        //onChangeEnd : ,//TODO : after the user has chosen a value, value should be read out loud
+                        onChangeEnd: _sendValue,
                         min : brain.getLower(),
                         max: brain.getUpper(),
                       )),
@@ -72,3 +79,4 @@ class _RangeState extends State<Range> {
     );
   }
 }
+

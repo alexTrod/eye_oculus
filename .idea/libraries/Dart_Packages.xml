@@ -16,6 +16,13 @@
             </list>
           </value>
         </entry>
+        <entry key="assets_audio_player">
+          <value>
+            <list>
+              <option value="$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/assets_audio_player-1.2.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="async">
           <value>
             <list>
@@ -72,10 +79,31 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_alert">
+          <value>
+            <list>
+              <option value="$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_alert-0.4.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_test">
           <value>
             <list>
               <option value="$USER_HOME$/Documents/shopisan/flutter/flutter/packages/flutter_test/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="http">
+          <value>
+            <list>
+              <option value="$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.0+4/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="http_parser">
+          <value>
+            <list>
+              <option value="$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-3.1.3/lib" />
             </list>
           </value>
         </entry>
@@ -132,6 +160,13 @@
           <value>
             <list>
               <option value="$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-2.0.5/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="rxdart">
+          <value>
+            <list>
+              <option value="$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.23.1/lib" />
             </list>
           </value>
         </entry>
@@ -205,6 +240,13 @@
             </list>
           </value>
         </entry>
+        <entry key="web_socket_channel">
+          <value>
+            <list>
+              <option value="$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-1.1.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="xml">
           <value>
             <list>
@@ -217,6 +259,7 @@
     <CLASSES>
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/archive-2.0.11/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/args-1.5.2/lib" />
+      <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/assets_audio_player-1.2.3/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.4.0/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-1.0.5/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/charcode-1.1.2/lib" />
@@ -224,6 +267,9 @@
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/convert-2.1.1/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-2.1.3/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-0.1.3/lib" />
+      <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_alert-0.4.0/lib" />
+      <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.0+4/lib" />
+      <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-3.1.3/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/image-2.1.4/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-3.0.1/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.6/lib" />
@@ -232,6 +278,7 @@
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/pedantic-1.8.0+1/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-2.4.0/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-2.0.5/lib" />
+      <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.23.1/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.5.5/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/speech_to_text-0.8.0/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.9.3/lib" />
@@ -241,6 +288,7 @@
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.2.11/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/typed_data-1.1.6/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.0.8/lib" />
+      <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-1.1.0/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/.pub-cache/hosted/pub.dartlang.org/xml-3.5.0/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/bin/cache/pkg/sky_engine/lib" />
       <root url="file://$USER_HOME$/Documents/shopisan/flutter/flutter/packages/flutter/lib" />

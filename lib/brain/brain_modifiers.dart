@@ -7,20 +7,20 @@ abstract class Brain{
 
 class RangeBrain extends Brain{
   Map parameters;
-  int initValue;
+  Map param;
+  double initValue;
   double upper;
   double lower;
   int divisions;
-  RangeBrain({this.parameters}){
-    lower = parameters['lower'];
-    upper = parameters['upper'];
-    divisions = parameters['divisions'];
-    initValue = (lower+upper)~/2;
+  String feature;
+  RangeBrain({this.parameters, this.feature}){
+    param = parameters[feature];
+    lower = param['lower'];
+    upper = param['upper'];
+    divisions = param['divisions'];
+    initValue = param['value'];
   }
-  int getValue(){
-    return initValue;
-  }
-  int getInitValue(){
+  double getValue(){
     return initValue;
   }
   double getLower(){
@@ -35,7 +35,10 @@ class RangeBrain extends Brain{
   String getReadableValue(){
     return initValue.toString();
   }
-  setValue(int newValue){
+  String getFeature(){
+    return this.feature;
+  }
+  setValue(double newValue){
     initValue = newValue;
   }
 
@@ -43,8 +46,9 @@ class RangeBrain extends Brain{
 
 class SwitchBrain extends Brain{
   bool on;
+  String feature;
 
-  SwitchBrain({this.on});
+  SwitchBrain({this.on, this.feature});
 
   bool getValue(){
     return this.on;
@@ -63,7 +67,8 @@ class DropDownBrain extends Brain{
 
   List list;
   int index;
-  DropDownBrain({@required this.list});
+  String feature;
+  DropDownBrain({@required this.list, this.feature});
 
   String getReadableValue(){
     return list[index];

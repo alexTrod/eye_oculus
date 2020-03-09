@@ -1,5 +1,4 @@
 import 'package:eye_oculus/brain/brain_modifiers.dart';
-import 'package:eye_oculus/constants.dart';
 import 'package:flutter/material.dart';
 
 class DropDown extends StatefulWidget {
@@ -14,7 +13,7 @@ class _DropDownState extends State<DropDown> {
 
   getBack() {
     setState(() {
-      currentIndex = (currentIndex) % this.widget.brain.getList().length;
+      currentIndex = (currentIndex-1) % this.widget.brain.getList().length;
     });
   }
 
@@ -37,10 +36,17 @@ class _DropDownState extends State<DropDown> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          FloatingActionButton(
-              heroTag: 'back',
-              onPressed: () => getBack(),
-              child: Icon(Icons.arrow_back_ios)
+          SizedBox(
+            width: 100.0,
+            height: 100.0,
+            child: FloatingActionButton(
+                heroTag: 'back',
+                onPressed: () => getBack(),
+                child: Icon(
+                    Icons.arrow_back_ios,
+                    size: 50.0,
+                )
+            ),
           ),
           Text(
             this.widget.brain.getList()[currentIndex],
@@ -48,15 +54,29 @@ class _DropDownState extends State<DropDown> {
               fontSize : 20,
             ),
           ),
-          FloatingActionButton(
-              heroTag: 'forward',
-              onPressed: () => getNext(),
-              child : Icon(Icons.arrow_forward_ios),
+          SizedBox(
+            width:100.0,
+            height: 100.0,
+            child: FloatingActionButton(
+                heroTag: 'forward',
+                onPressed: () => getNext(),
+                child : Icon(
+                    Icons.arrow_forward_ios,
+                    size: 50.0,
+                ),
+            ),
           ),
-          FloatingActionButton(
-            heroTag: 'validate',
-            onPressed: () => validate(),
-              child : Icon(Icons.check),
+          SizedBox(
+            width: 100.0,
+            height: 100.0,
+            child: FloatingActionButton(
+              heroTag: 'validate',
+              onPressed: () => validate(),
+                child : Icon(
+                    Icons.check,
+                    size: 50.0,
+                ),
+            ),
           ),
         ],
       ),
