@@ -1,6 +1,9 @@
+import 'package:eye_oculus/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:eye_oculus/brain/brain_modifiers.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:eye_oculus/brain/postRequest.dart';
+import 'package:eye_oculus/brain/settings.dart';
 
 class BinChoice extends StatefulWidget {
 
@@ -20,6 +23,13 @@ class _BinChoiceState extends State<BinChoice> {
 
   _BinChoiceState({this.brain, this.parameter});
 
+  setValue( bool value){
+    brain.setValue(value);
+    PostSwitchRequest postRequest = PostSwitchRequest();
+        postRequest.postRequest(this.widget.brain.getFeature(), value);
+    Settings.setSwitchParameters(value, this.widget.brain.getFeature());
+
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +39,7 @@ class _BinChoiceState extends State<BinChoice> {
           Expanded(
             child: GestureDetector(
               onTap: (){
-                setState(() =>  brain.setValue(true));
+                setState(() => setValue(true));
                 assetsAudioPlayer.open(
                   "assets/on.mp3",
                 );
@@ -40,8 +50,8 @@ class _BinChoiceState extends State<BinChoice> {
                 color: Colors.white70,
                 child: Center(
                   child: Icon(
-                    parameter['iconOn'],
-                    color: brain.getValue() ? parameter['colorOn'] : Colors.grey,
+                    kBinParameters[this.brain.getFeature()]['iconOn'],
+                    color: brain.getValue() ? kBinParameters[this.brain.getFeature()]['colorOn'] : Colors.grey,
                     size: 120,
                   ),
                 ),
@@ -51,7 +61,7 @@ class _BinChoiceState extends State<BinChoice> {
           Expanded(
             child: GestureDetector(
               onTap: (){
-                setState(() => brain.setValue(false));
+                setState(() => setValue(false));
                 assetsAudioPlayer.open(
                   "assets/off.mp3",
                 );
@@ -62,8 +72,8 @@ class _BinChoiceState extends State<BinChoice> {
                 color: Colors.white70,
                 child: Center(
                   child: Icon(
-                    parameter['iconOff'],
-                    color: brain.getValue() ? Colors.grey : parameter['colorOff'],
+                    kBinParameters[this.brain.getFeature()]['iconOff'],
+                    color: brain.getValue() ? Colors.grey :  kBinParameters[this.brain.getFeature()]['colorOff'],
                     size : 120,
                   ),
                 ),

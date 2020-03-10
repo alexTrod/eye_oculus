@@ -29,6 +29,12 @@ flutter:
   assets:
     - assets/on.mp3
     - assets/off.mp3
+    - assets/dropdown1.mp3
+    - assets/dropdown2.mp3
+    - assets/dropdown3.mp3
+    - assets/dropdown4.mp3
+    - assets/dropdown5.mp3
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -28,7 +28,7 @@ class Features extends StatelessWidget {
           crossAxisCount: 2,
           children: <Widget>[
             FeatureCard(
-              title: 'Heating on/off',
+              title: 'On/off',
               appliance : kTurn,
             ),
             FeatureCard(

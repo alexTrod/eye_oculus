@@ -2,6 +2,7 @@ import 'package:eye_oculus/brain/brain_modifiers.dart';
 import 'package:eye_oculus/brain/postRequest.dart';
 import 'package:eye_oculus/brain/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class DropDown extends StatefulWidget {
   final DropDownBrain brain;
@@ -11,23 +12,33 @@ class DropDown extends StatefulWidget {
 }
 
 class _DropDownState extends State<DropDown> {
-  int currentIndex = 0; //TODO : get getSettings
+  int currentIndex = 0;
+  final assetsAudioPlayer = AssetsAudioPlayer();
+
 
   getBack() {
     setState(() {
       currentIndex = (currentIndex-1) % this.widget.brain.getList().length;
     });
+    runAudio();
   }
-
+  runAudio(){
+    print('start');
+    String toListen = "assets/dropdown$currentIndex.mp3";
+    assetsAudioPlayer.open(
+          toListen
+    );
+    assetsAudioPlayer.play();
+  }
   getNext() {
     setState(() {
       //currentIndex = (currentIndex++) % this.widget.list.length;
       currentIndex = (currentIndex+1) % this.widget.brain.getList().length;
     });
+    runAudio();
   }
 
   validate() {
-    //TODO: send information to the API
     Navigator.pop(context);
     PostDropdownRequest postRequest = PostDropdownRequest();
     print(this.widget.brain.getList());

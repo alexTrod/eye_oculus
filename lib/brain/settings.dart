@@ -15,7 +15,15 @@ class Settings{
       'value' : 45.0,
     }
   };
-  static Map switchParameters;
+  static Map switchParameters =
+  {
+    'turn':{
+      'on' : false,
+    },
+    'light':{
+      'on' : false,
+    }
+  };
   static Map dropDownParameters =
     {
       'heating': { // range | switch | dropdown
@@ -28,20 +36,20 @@ class Settings{
       }
   };
 
+  static getRangeParameters() {return rangeParameters;}
+  static getDropDownParameters(){return dropDownParameters;}
+  static getSwitchParameters(){ return switchParameters;}
+
   static void setRangeParameters(double value, String feature){
     rangeParameters[feature]['value'] = value;
   }
 
-  static void setDropDownParameters(String value, String feature){
+  static void setDropDownParameters(bool value, String feature){
     dropDownParameters[feature]['value'] = value;
   }
 
-  static getRangeParameters() { return rangeParameters;}
-  static getDropDownParameters(){ return dropDownParameters;}
-
   static void setSwitchParameters(bool value, String feature){
-    //
+    switchParameters[feature]['on'] = value;
   }
-  //TODO : add all getters & setters
 
 }

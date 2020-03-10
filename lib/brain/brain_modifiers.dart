@@ -45,22 +45,25 @@ class RangeBrain extends Brain{
 }
 
 class SwitchBrain extends Brain{
-  bool on;
+  Map parameters;
   String feature;
 
-  SwitchBrain({this.on, this.feature});
+  SwitchBrain({this.parameters, this.feature});
 
   bool getValue(){
-    return this.on;
+    return this.parameters[feature]['on'];
   }
 
   String getReadableValue(){
-    if(on) return "On";
+    if(getValue()) return "On";
     else return "Off";
   }
 
   void setValue(bool on){
-    this.on = on;
+    this.parameters[feature]['on'] = on;
+  }
+  String getFeature(){
+    return this.feature;
   }
 }
 class DropDownBrain extends Brain{

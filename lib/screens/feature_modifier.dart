@@ -37,9 +37,9 @@ class _FeatureModifierState extends State<FeatureModifier> {
       widgetComponent = Range(brain: brain, parameter : Settings.getRangeParameters());
     }
     else if(kBinList.contains(feature)){ //
-      brain = new SwitchBrain(on : true, feature:feature);
+      brain = new SwitchBrain(parameters : Settings.getSwitchParameters(), feature:feature);
 
-      widgetComponent = BinChoice(brain : brain, parameter : kBinParameters[feature]);
+      widgetComponent = BinChoice(brain : brain, parameter : Settings.getSwitchParameters());
     }
     else if(kDropdownList.contains(feature)){
       brain = new DropDownBrain(list : Settings.getDropDownParameters(), feature: feature);

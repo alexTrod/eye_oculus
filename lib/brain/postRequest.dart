@@ -72,4 +72,32 @@ class PostDropdownRequest extends DropDownRequest with PostRequest{
 
 }
 
-class PostSwitchRequest extends SwitchRequest with PostRequest{}
+class PostSwitchRequest extends SwitchRequest with PostRequest{
+  String valueToSend(String feature, bool value){
+    String mappedV;
+    if(value) mappedV = 'true';
+    else mappedV = 'false';
+    Map toSend =  {
+      'featureType' : 'switch', // range | switch | dropdown
+      feature : {
+        'on' : mappedV,
+      }
+    };
+    return jsonEncode(toSend);
+  }
+
+  void postRequest(String feature, bool value) async {
+
+    print('sending a post request');
+    var response;
+    try {
+      response = await http.post(url, body: valueToSend(feature, value));
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+    }
+    catch(e){
+      print('error : $e');
+    }
+
+  }
+}
