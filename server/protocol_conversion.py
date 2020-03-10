@@ -9,7 +9,7 @@ GET
         {
             "feature" : feature_name
         }
-        -> 0000c (where c is the command character)             
+        -> 000Rc (where c is the command character)             
     Response :
         Range :
             xxxxc (where xxxx is the requested value) ->
@@ -80,16 +80,16 @@ POST
 """
 
 dictionary = bidict({
-    "A": "heating mode.fan oven",
-    "B": "heating mode.conventional",
-    "C": "heating mode.bottom element",
-    "D": "heating mode.fan and grill",
-    "E": "heating mode.grill",
-    "F": "oven light",
-    "G": "heating mode.defrosting",
+    "A": "heating.Fan oven",
+    "B": "heating.Conventional",
+    "C": "heating.Bottom element",
+    "D": "heating.Fan with grill",
+    "E": "heating.Grill",
+    "F": "light",
+    "G": "heating.Defrosting",
     "H": "get temperature",
-    "I": "set temperature",
-    "J": "timer"
+    "I": "temperature",
+    "S": "timer"
 })
 
 
@@ -108,12 +108,12 @@ def json_to_cmd(data):
         if feature_type == "range" or feature_type == "dropdown":
             value = data[feature_name]["value"]
         elif feature_type == "switch":
-            value = data[feature_name]["on"]
+            value = data[feature_name]["on"] == "true"
 
     elif "feature" in data:  # GET request
         feature_name = data["feature"]
+        value = "R"
 
-    cmd_arg = str(value)
     request = feature_name
 
     if feature_type == "dropdown":
@@ -122,8 +122,17 @@ def json_to_cmd(data):
 
     elif feature_type == "switch":
         cmd_arg = "T" if value else "F"
+        if feature_name == "turn":  # fix inconsistency in phone and appliance protocol
+            request = "timer"  # -> 000TS to turn on
+            if not value:
+                cmd_arg = "0"  # -> 0000S to turn off
+
+    else:
+        cmd_arg = str(int(value))
 
     if request not in dictionary.inverse or len(cmd_arg) > 4:
+        print(cmd_arg)
+        print(request, len(cmd_arg))
         print("unable to translate", data, "to cmds")
         return b''
 

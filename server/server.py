@@ -5,10 +5,11 @@ import json
 
 from protocol_conversion import json_to_cmd, cmd_to_json
 
-# host, port = '192.168.43.69', 8888  # hotspot 12
-host, port = 'localhost', 8888  # local
+host, port = '192.168.43.69', 8888  # hotspot 12
+# host, port = 'localhost', 8888  # local
 # host, port = '145.94.151.50', 8888  # eduroam (civil)
-# host, port = '145.94.150.241', 8888  # eduroam (library)
+# host, port = '192.168.178.12', 8888
+
 
 sel = selectors.DefaultSelector()
 send_buffers = {}
@@ -20,6 +21,8 @@ PHONE_RESP = b'HTTP/1.1 200 OK\r\n\r\n'
 APPLIANCE_RESP = b'ACK'
 PHONE_CODE = b'HTTP'
 APPLIANCE_CODE = b'ACK'
+
+MAX_PHONE_CONNS = 3
 
 
 def broadcast(data, to_phones):
@@ -36,6 +39,8 @@ def is_phone(data, c_id):
         phones.append(c_id)
         return True
 
+    return False
+
 
 def is_appliance(data, c_id):
     if c_id in appliances:
@@ -45,13 +50,17 @@ def is_appliance(data, c_id):
         appliances.append(c_id)
         return True
 
+    return False
+
 
 def handle_phone_data(data):
+    json_data_begin = data.decode('utf-8').find("{")  # this is another horrible hack, I know
+    stripped = data[json_data_begin:]
     try:
-        cmd = json_to_cmd(data)
-        # send_buffers[key.data] += HTTP_RESP  # send response to app
+        cmd = json_to_cmd(stripped)
         broadcast(cmd, False)
     except json.JSONDecodeError:
+        # print(stripped, "could not be decoded")
         pass
 
 
@@ -110,6 +119,12 @@ try:
                             sent = sock.send(send_buffer)
                             print("sent", send_buffer[:sent])
                             send_buffers[key.data] = send_buffer[sent:]  # remove sent bytes from buffer
+
+                    # remove old phone connections
+                    if key.data in phones and phones.index(key.data) < len(phones) - MAX_PHONE_CONNS:
+                        del send_buffers[key.data]
+                        phones.remove(key.data)
+                        sel.unregister(sock)
 
                 except Exception:
                     print("an exception occurred:", f"{traceback.format_exc()}")

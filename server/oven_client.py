@@ -2,9 +2,10 @@ import socket
 import selectors
 import traceback
 
-# host, port = '192.168.43.69', 8888  # hotspot 12
+host, port = '192.168.43.69', 8888  # hotspot 12
 # host, port = '145.94.151.50', 8888
-host, port = 'localhost', 8888
+# host, port = 'localhost', 8888
+# host, port = '192.168.178.12', 8888
 sel = selectors.DefaultSelector()
 
 send_buf = b"ACK"
