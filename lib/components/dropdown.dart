@@ -1,4 +1,6 @@
 import 'package:eye_oculus/brain/brain_modifiers.dart';
+import 'package:eye_oculus/brain/postRequest.dart';
+import 'package:eye_oculus/brain/settings.dart';
 import 'package:flutter/material.dart';
 
 class DropDown extends StatefulWidget {
@@ -25,8 +27,13 @@ class _DropDownState extends State<DropDown> {
   }
 
   validate() {
-    //TODO: send informations to the API
+    //TODO: send information to the API
     Navigator.pop(context);
+    PostDropdownRequest postRequest = PostDropdownRequest();
+    print(this.widget.brain.getList());
+    print(this.widget.brain.getList()[currentIndex]);
+    postRequest.postRequest(this.widget.brain.getFeature(), this.widget.brain.getList()[currentIndex]);
+    Settings.setDropDownParameters(this.widget.brain.getList()[currentIndex], this.widget.brain.getFeature());
   }
 
   @override

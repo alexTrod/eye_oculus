@@ -34,7 +34,7 @@ class _FeatureModifierState extends State<FeatureModifier> {
       //TODO step1
       print('feature = '+feature);
       brain = new RangeBrain(parameters : Settings.getRangeParameters(), feature : feature);
-      widgetComponent = Range(brain: brain, parameter : kRangeParameters[feature]);
+      widgetComponent = Range(brain: brain, parameter : Settings.getRangeParameters());
     }
     else if(kBinList.contains(feature)){ //
       brain = new SwitchBrain(on : true, feature:feature);
@@ -42,7 +42,7 @@ class _FeatureModifierState extends State<FeatureModifier> {
       widgetComponent = BinChoice(brain : brain, parameter : kBinParameters[feature]);
     }
     else if(kDropdownList.contains(feature)){
-      brain = new DropDownBrain(list: kDropDownListHeatingMode);
+      brain = new DropDownBrain(list : Settings.getDropDownParameters(), feature: feature);
       widgetComponent = DropDown(brain: brain);
     }
     else{

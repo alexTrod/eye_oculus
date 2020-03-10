@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'request.dart';
 import 'package:http/http.dart' as http;
 
@@ -5,6 +6,7 @@ const range = '{"temperature": {"value": 200,"lower_bound": 150,"upper_bound": 2
 const Switch = '{"turn": {"on": true},"light": {"on": false}}';
 const dropDown = '{"heating": {"list": ["option 1","option 2","option 3"]}}';
 
+const url = 'http://192.168.43.69:8888';
 
 mixin PostRequest on Command{
 }
@@ -16,19 +18,17 @@ class PostRangeRequest extends RangeRequest with PostRequest{
 
   String valueToSend(String feature, double value){
     Map toSend =  {
-      "featureType" : "range",
+      'featureType' : 'range',
       feature : {
-        "value" : value
+        'value' : value
       }
     };
-    print(toSend.toString());
-    return toSend.toString();
+    return jsonEncode(toSend);
   }
 
   void postRequest(String feature, double value) async {
 
     print('sending a post request');
-    var url = 'http://145.94.150.241:8888';
     var response;
     try {
       response = await http.post(url, body: valueToSend(feature, value));
@@ -44,5 +44,32 @@ class PostRangeRequest extends RangeRequest with PostRequest{
   //Settings.setRangeParameters(parsedJson['feature', ..]);
 }
 
+class PostDropdownRequest extends DropDownRequest with PostRequest{
+  String valueToSend(String feature, String value){
+    Map toSend =  {
+      'featureType' : 'dropdown', // range | switch | dropdown
+      feature : { //
+        'value' : value, //
+      }
+    };
+    return jsonEncode(toSend);
+  }
+
+  void postRequest(String feature, String value) async {
+
+    print('sending a post request');
+    var response;
+    try {
+      response = await http.post(url, body: valueToSend(feature, value));
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+    }
+    catch(e){
+      print('error : $e');
+    }
+
+  }
+
+}
+
 class PostSwitchRequest extends SwitchRequest with PostRequest{}
-class PostDropdownRequest extends DropDownRequest with PostRequest{}

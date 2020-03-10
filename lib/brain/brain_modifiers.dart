@@ -65,21 +65,26 @@ class SwitchBrain extends Brain{
 }
 class DropDownBrain extends Brain{
 
-  List list;
+  Map list;
   int index;
   String feature;
   DropDownBrain({@required this.list, this.feature});
 
   String getReadableValue(){
-    return list[index];
+    return list[feature][index];
+  }
+  Map getMap(){
+    return list[feature];
   }
   List getList(){
-    return list;
+    return list[feature]['list'];
   }
   getValue(){
-    return list[index];
+    return list[feature][index];
   }
-
+  String getFeature(){
+    return this.feature;
+  }
 }
 class NoBrain extends Brain{
   String error;

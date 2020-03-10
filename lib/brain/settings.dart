@@ -16,13 +16,28 @@ class Settings{
     }
   };
   static Map switchParameters;
-  static Map dropDownParameters;
+  static Map dropDownParameters =
+    {
+      'heating': { // range | switch | dropdown
+        'value' : 'Conventional',
+        'list' : ['Conventional',
+          'Bottom element',
+          'Fan with grill',
+          'Grill',
+          'Defrosting'],
+      }
+  };
 
   static void setRangeParameters(double value, String feature){
     rangeParameters[feature]['value'] = value;
   }
 
+  static void setDropDownParameters(String value, String feature){
+    dropDownParameters[feature]['value'] = value;
+  }
+
   static getRangeParameters() { return rangeParameters;}
+  static getDropDownParameters(){ return dropDownParameters;}
 
   static void setSwitchParameters(bool value, String feature){
     //
